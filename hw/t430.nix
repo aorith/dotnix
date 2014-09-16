@@ -8,13 +8,22 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "usb_storage" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+
+  # Use the GRUB 2 boot loader.
+  boot = {
+    loader.grub.enable = true;
+    loader.grub.version = 2;
+    loader.grub.device = "/dev/sda";
+    initrd.availableKernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "usb_storage" ];
+    kernelModules = [ "tp_smapi" "thinkpad_acpi" "coretemp" "kvm-intel" ];
+    initrd.kernelModules = [ "fbcon" "i915" ];
+    extraModulePackages = [ config.boot.kernelPackages.tp_smapi ];
+  };
 
   fileSystems."/" =
     { device = "/dev/sda3";
       fsType = "ext4";
+      options = "defaults,noatime,discard";
     };
 
   swapDevices =

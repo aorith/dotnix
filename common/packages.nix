@@ -7,5 +7,10 @@
      chromium
      mpv
      git
+     vim
+     sudo
+     youtubeDL
+     kde4.l10n.es
+     kde4.calligra
    ];
 }

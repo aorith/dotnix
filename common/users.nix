@@ -2,6 +2,7 @@
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
+    mutableUsers = true;
     extraUsers.aorith = {
       name = "aorith";
       group = "aorith";

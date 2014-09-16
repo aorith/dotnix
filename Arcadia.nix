@@ -10,13 +10,9 @@
       ./hw/t430.nix
       ./common/users.nix
       ./common/packages.nix
+      ./common/fonts.nix
     ];
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sda";
+  
 
   # Select internationalisation properties.
    i18n = {
@@ -50,13 +46,35 @@
       wpa_supplicant_gui
       thinkfan
       powertop
+      lm_sensors
     ];
   };
 
   services.xserver.synaptics = {
     enable = true;
     twoFingerScroll = true;
+    additionalOptions =
+	''
+      	    Option          "VertTwoFingerScroll"   "on"
+            Option          "HorizTwoFingerScroll"  "on"
+            Option          "EmulateTwoFingerMinW"  "8"
+            Option          "EmulateTwoFingerMinZ"  "40"
+            Option          "TapButton1"            "1"
+	'';
   };
+
+  services.xserver.config =
+	''
+	   Section "InputClass"
+        	Identifier      "ThinkPad TrackPoint"
+        	MatchProduct    "TPPS/2 IBM TrackPoint"
+        	MatchDevicePath "/dev/input/event*"
+        	Option          "EmulateWheel"          "true"
+        	Option          "EmulateWheelButton"    "2"
+        	Option          "XAxisMapping"          "6 7"
+        	Option          "YAxisMapping"          "4 5"
+	   EndSection
+	'';
 
   networking = {
     wireless = {
@@ -71,5 +89,6 @@
   powerManagement.enable = true;
   services.xserver.videoDrivers = ["intel"];
   services.thinkfan.enable = true;
-
+  services.thinkfan.sensor = "/sys/devices/platform/coretemp.0/temp1_input";
+  services.acpid.enable = true;
 }
