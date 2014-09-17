@@ -1,6 +1,8 @@
-
+{ config, pkgs, ... }:
 
 {
+
+   networking.firewall.enable = true;
 
    environment = {
       shellInit = ''

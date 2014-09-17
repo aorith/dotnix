@@ -9,9 +9,9 @@
       uid = 1000;
       createHome = true;
       home = "/home/aorith";
-      extraGroups = [ "users" "wheel" "networkmanager" "audio" ];
+      extraGroups = [ "wheel" "networkmanager" "audio" ];
       description = "Manuel Sánchez";
-      shell = "/run/current-system/sw/bin/bash";
+      useDefaultShell = true;
     };
     extraGroups.aorith.gid = 1000;
   };
