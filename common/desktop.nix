@@ -1,0 +1,24 @@
+{ config, pkgs, ... }:
+
+{
+        
+
+ services.xserver = {
+   enable = true;
+   displayManager.kdm.enable = true;
+   desktopManager.kde4.enable = true;
+ };
+
+
+
+  environment = {
+    systemPackages = with pkgs; [
+      kde4.l10n.es
+      kde4.calligra
+      kde4.networkmanagement
+      pkgs.kde4.kdemultimedia pkgs.kde4.kdegraphics pkgs.kde4.kdeutils pkgs.kde4.applications pkgs.kde4.kdegames pkgs.kde4.kdeedu pkgs.kde4.kdebindings pkgs.kde4.kdeaccessibility pkgs.kde4.kde_baseapps pkgs.kde4.kactivities pkgs.kde4.kdeadmin pkgs.kde4.kdeartwork pkgs.kde4.kde_base_artwork pkgs.kde4.kdenetwork pkgs.kde4.kdepim pkgs.kde4.kdepimlibs pkgs.kde4.kdeplasma_addons pkgs.kde4.kdesdk pkgs.kde4.kdetoys pkgs.kde4.kde_wallpapers pkgs.kde4.kdewebdev pkgs.kde4.oxygen_icons pkgs.kde4.kdebase_workspace pkgs.kde4.kdelibs pkgs.kde4.kdevelop pkgs.kde4.kdevplatform
+      pkgs.oxygen_gtk
+    ];
+  };
+   
+}

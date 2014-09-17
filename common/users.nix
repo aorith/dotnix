@@ -9,7 +9,7 @@
       uid = 1000;
       createHome = true;
       home = "/home/aorith";
-      extraGroups = [ "users" "wheel" ];
+      extraGroups = [ "users" "wheel" "networkmanager" "audio" ];
       description = "Manuel Sánchez";
       shell = "/run/current-system/sw/bin/bash";
     };

@@ -11,39 +11,15 @@
       ./common/users.nix
       ./common/packages.nix
       ./common/fonts.nix
+      ./common/desktop.nix
+      ./common/misc.nix
     ];
-  
-
-  # Select internationalisation properties.
-   i18n = {
-     consoleFont = "lat9w-16";
-     consoleKeyMap = "es";
-     defaultLocale = "es_ES.UTF-8";
-  };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "es";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.kdm.enable = true;
-  services.xserver.desktopManager.kde4.enable = true;
 
   environment = {
     systemPackages = with pkgs; [
       acpi
       acpid
       wpa_supplicant
-      wpa_supplicant_gui
       thinkfan
       powertop
       lm_sensors
@@ -77,8 +53,9 @@
 	'';
 
   networking = {
+    networkmanager.enable = true;
     wireless = {
-      enable = true;
+      enable = yes;
       interfaces = [ "wlp3s0" ];
       userControlled.enable = true;
     };
@@ -91,4 +68,5 @@
   services.thinkfan.enable = true;
   services.thinkfan.sensor = "/sys/devices/platform/coretemp.0/temp1_input";
   services.acpid.enable = true;
+  services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
 }
