@@ -56,7 +56,7 @@
   boot.loader.grub.extraEntries =
       ''
           # GRUB 2 example
-               menuentry "Windows 7" {
+               menuentry "Windows" {
                  chainloader (hd0,1)+1
                }
       '';

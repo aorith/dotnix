@@ -5,7 +5,9 @@
    environment.systemPackages = with pkgs; [
      wget
      chromium
+     firefoxWrapper
      mpv
+     vlc
      git
      vim
      sudo
@@ -13,6 +15,24 @@
      xcalib
      emacs
      argyllcms
+     skype
+     pidgin
+     # adobe-reader # version 9?
+     which
+     curl
+     unrar
+     unzip
+     xz
+     zip
+     unetbootin
+     gimp
+     dropbox
+     keepassx2
+     spotify
+     file
+     i3
+     i3status
+     dmenu   
    ];
 
    nixpkgs.config = {

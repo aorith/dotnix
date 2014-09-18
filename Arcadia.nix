@@ -29,14 +29,20 @@
   services.xserver.synaptics = {
     enable = true;
     twoFingerScroll = true;
-    additionalOptions =
-	''
-      	    Option          "VertTwoFingerScroll"   "on"
-            Option          "HorizTwoFingerScroll"  "on"
-            Option          "EmulateTwoFingerMinW"  "8"
-            Option          "EmulateTwoFingerMinZ"  "40"
-            Option          "TapButton1"            "1"
-	'';
+    palmDetect = true;
+    vertEdgeScroll = true;
+    horizontalScroll = true;
+    tapButtons = true;
+    accelFactor = "0.003";
+    maxSpeed = "1.2";
+#    additionalOptions =
+#	''
+#      	    Option          "VertTwoFingerScroll"   "on"
+#            Option          "HorizTwoFingerScroll"  "on"
+#            Option          "EmulateTwoFingerMinW"  "8"
+#            Option          "EmulateTwoFingerMinZ"  "40"
+#            Option          "TapButton1"            "1"
+#	'';
   };
 
 #  services.xserver.config =
@@ -71,7 +77,7 @@
   powerManagement = {
       enable = true;
       cpuFreqGovernor = "powersave";
-      powerUpCommands = "/etc/nixos/dotnix/hw/pt.sh";
+      powerUpCommands = "powertop --auto-tune";
   };
   services.xserver.videoDrivers = ["intel"];
   services.thinkfan.enable = true;
