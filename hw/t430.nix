@@ -15,7 +15,7 @@
     loader.grub.version = 2;
     loader.grub.device = "/dev/sda";
     initrd.availableKernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "usb_storage" ];
-    kernelModules = [ "tp_smapi" "thinkpad_acpi" "coretemp" "kvm-intel" ];
+    kernelModules = [ "tp_smapi" "thinkpad_acpi" "coretemp" "kvm-intel" "msr" ];
     initrd.kernelModules = [ "fbcon" "i915" ];
     extraModulePackages = [ config.boot.kernelPackages.tp_smapi ];
   };

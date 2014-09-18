@@ -10,6 +10,9 @@
      vim
      sudo
      youtubeDL
+     xcalib
+     emacs
+     argyllcms
    ];
 
    nixpkgs.config = {

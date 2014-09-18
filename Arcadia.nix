@@ -39,23 +39,28 @@
 	'';
   };
 
-  services.xserver.config =
-	''
-	   Section "InputClass"
-        	Identifier      "ThinkPad TrackPoint"
-        	MatchProduct    "TPPS/2 IBM TrackPoint"
-        	MatchDevicePath "/dev/input/event*"
-        	Option          "EmulateWheel"          "true"
-        	Option          "EmulateWheelButton"    "2"
-        	Option          "XAxisMapping"          "6 7"
-        	Option          "YAxisMapping"          "4 5"
-	   EndSection
-	'';
+#  services.xserver.config =
+#	''
+#	   Section "InputClass"
+#       	Identifier      "ThinkPad TrackPoint"
+#       	MatchProduct    "TPPS/2 IBM TrackPoint"
+#       	MatchDevicePath "/dev/input/event*"
+#        	Option          "EmulateWheel"          "true"
+#        	Option          "EmulateWheelButton"    "2"
+#        	Option          "XAxisMapping"          "6 7"
+#        	Option          "YAxisMapping"          "4 5"
+#	   EndSection
+#	'';
+
+  hardware.trackpoint = {
+      enable = true;
+      emulateWheel = true;
+  };
 
   networking = {
     networkmanager.enable = true;
     wireless = {
-      enable = yes;
+      enable = false;
       interfaces = [ "wlp3s0" ];
       userControlled.enable = true;
     };
@@ -63,10 +68,17 @@
     hostName = "Arcadia";
   };
 
-  powerManagement.enable = true;
+  powerManagement = {
+      enable = true;
+      cpuFreqGovernor = "powersave";
+      powerUpCommands = "/etc/nixos/dotnix/hw/pt.sh";
+  };
   services.xserver.videoDrivers = ["intel"];
   services.thinkfan.enable = true;
   services.thinkfan.sensor = "/sys/devices/platform/coretemp.0/temp1_input";
   services.acpid.enable = true;
   services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
+  
+  services.cron.systemCronJobs = [ "@reboot root /etc/nixos/dotnix/hw/pt.sh" ];
+
 }
