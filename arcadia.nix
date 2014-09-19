@@ -31,7 +31,7 @@
       userControlled.enable = true;
     };
     enableIPv6 = false;
-    hostName = "Arcadia";
+    hostName = "arcadia";
   };
 
   powerManagement = {

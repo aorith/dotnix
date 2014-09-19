@@ -37,21 +37,16 @@
   };
 	
 
-    i18n = {consoleKeyMap = "es"; defaultLocale = "es_ES.UTF-8";};
-    time.timeZone = "Europe/Madrid";
-
-
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
+  i18n = { 
+    consoleKeyMap = "es";
+    defaultLocale = "es_ES.UTF-8";
+    #supportedLocales = [ "en_US.UTF-8/UTF-8" "es_ES.UTF-8/UTF-8" ];
+  };
   services.xserver.layout = "es";
   # services.xserver.xkbOptions = "eurosign:e";
+  time.timeZone = "Europe/Madrid";
+
+
 
   boot.loader.grub.extraEntries =
       ''
