@@ -77,7 +77,7 @@
   powerManagement = {
       enable = true;
       cpuFreqGovernor = "powersave";
-      powerUpCommands = "powertop --auto-tune";
+      #powerUpCommands = "powertop --auto-tune";
   };
   services.xserver.videoDrivers = ["intel"];
   services.thinkfan.enable = true;
@@ -85,6 +85,6 @@
   services.acpid.enable = true;
   services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
   
-  services.cron.systemCronJobs = [ "@reboot root /etc/nixos/dotnix/hw/pt.sh" ];
+  services.cron.systemCronJobs = [ "@reboot root powertop --auto-tune" ];
 
 }

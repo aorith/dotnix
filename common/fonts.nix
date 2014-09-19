@@ -11,13 +11,24 @@
       ttf_bitstream_vera
       dejavu_fonts
       terminus_font
-      bakoma_ttf
-      clearlyU
-      cm_unicode
-      andagii
-      bakoma_ttf
-      inconsolata
-      gentium
+      vistafonts
+        xorg.fontadobeutopiatype1
+    	xorg.fontalias
+    	xorg.fontarabicmisc
+    	xorg.fontbh100dpi
+    	xorg.fontbh75dpi
+    	xorg.fontbhlucidatypewriter100dpi
+    	xorg.fontbhlucidatypewriter75dpi
+    	xorg.fontbhttf
+    	xorg.fontbhtype1
+    	xorg.fontbitstream100dpi
+    	xorg.fontbitstream75dpi
+    	xorg.fontbitstreamtype1
+    	xorg.fontcronyxcyrillic
+    	xorg.fontcursormisc
+	xorg.fontibmtype1
+	xorg.fontutil
+	xorg.fontxfree86type1
     ];
   };
 
