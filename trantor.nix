@@ -37,6 +37,8 @@
     acpid.enable = true;
     xserver = {
       videoDrivers = [ "nouveau" ];
+    # config = ''
+    # '';
     };
   };
   
