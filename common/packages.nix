@@ -3,6 +3,7 @@
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
    environment.systemPackages = with pkgs; [
+     acpi linuxPackages.acpi_call lm_sensors powertop
      wget ntfs3g chromiumDev firefoxWrapper
      mpv vlc git vim sudo youtubeDL xcalib most
      emacs
@@ -29,7 +30,7 @@
      xorg.xhost xsel xorg.xinit xorg.setxkbmap
      xorg.xev xorg.xbacklight xorg.xprop kde4.ktorrent
      cups manpages freetype fontconfig p7zip gcc smartmontools
-     sublime3 linuxPackages.acpi_call
+     sublime3 hexchat
    ];
 
    nixpkgs.config = {

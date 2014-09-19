@@ -17,12 +17,8 @@
 
   environment = {
     systemPackages = with pkgs; [
-      acpi
-      acpid
       wpa_supplicant
       thinkfan
-      powertop
-      lm_sensors
     ];
   };
 
@@ -30,7 +26,7 @@
     enable = true;
     twoFingerScroll = true;
     palmDetect = true;
-    vertEdgeScroll = true;
+    vertEdgeScroll = false;
     horizontalScroll = true;
     tapButtons = true;
     accelFactor = "0.003";
@@ -61,6 +57,8 @@
   hardware.trackpoint = {
       enable = true;
       emulateWheel = true;
+      sensitivity = 255;
+      speed = 130;
   };
 
   networking = {
