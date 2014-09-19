@@ -12,6 +12,11 @@
       dejavu_fonts
       terminus_font
       vistafonts
+      gentium
+      bakoma_ttf
+      andagii
+      cm_unicode
+      clearlyU
         xorg.fontadobeutopiatype1
     	xorg.fontalias
     	xorg.fontarabicmisc
