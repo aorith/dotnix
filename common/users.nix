@@ -13,6 +13,8 @@
       description = "Manuel Sánchez";
       useDefaultShell = true;
     };
-    extraGroups.aorith.gid = 1000;
+    extraGroups = {
+      aorith.gid = 1000;
+    };
   };
 }

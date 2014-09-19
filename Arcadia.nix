@@ -22,44 +22,6 @@
     ];
   };
 
-  services.xserver.synaptics = {
-    enable = true;
-    twoFingerScroll = true;
-    palmDetect = true;
-    vertEdgeScroll = false;
-    horizontalScroll = true;
-    tapButtons = true;
-    accelFactor = "0.003";
-    maxSpeed = "1.2";
-#    additionalOptions =
-#	''
-#      	    Option          "VertTwoFingerScroll"   "on"
-#            Option          "HorizTwoFingerScroll"  "on"
-#            Option          "EmulateTwoFingerMinW"  "8"
-#            Option          "EmulateTwoFingerMinZ"  "40"
-#            Option          "TapButton1"            "1"
-#	'';
-  };
-
-#  services.xserver.config =
-#	''
-#	   Section "InputClass"
-#       	Identifier      "ThinkPad TrackPoint"
-#       	MatchProduct    "TPPS/2 IBM TrackPoint"
-#       	MatchDevicePath "/dev/input/event*"
-#        	Option          "EmulateWheel"          "true"
-#        	Option          "EmulateWheelButton"    "2"
-#        	Option          "XAxisMapping"          "6 7"
-#        	Option          "YAxisMapping"          "4 5"
-#	   EndSection
-#	'';
-
-  hardware.trackpoint = {
-      enable = true;
-      emulateWheel = true;
-      sensitivity = 255;
-      speed = 130;
-  };
 
   networking = {
     networkmanager.enable = true;
@@ -77,12 +39,35 @@
       cpuFreqGovernor = "powersave";
       #powerUpCommands = "powertop --auto-tune";
   };
-  services.xserver.videoDrivers = ["intel"];
-  services.thinkfan.enable = true;
-  services.thinkfan.sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input";
-  services.acpid.enable = true;
-  services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
   
-  services.cron.systemCronJobs = [ "@reboot root powertop --auto-tune" ];
-
+  services = {
+    thinkfan = {
+      enable = true;
+      sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input";
+    };
+    acpid.enable = true;
+    cron.systemCronJobs = [ "@reboot root powertop --auto-tune" ];
+    xserver = {
+      videoDrivers = [ "intel" ];
+      vaapiDrivers = [ pkgs.vaapiIntel ];
+      synaptics = {
+	enable = true;
+	twoFingerScroll = true;
+	palmDetect = true;
+	vertEdgeScroll = false;
+	horizontalScroll = true;
+	tapButtons = true;
+	accelFactor = "0.003";
+	maxSpeed = "1.2";
+      };
+    };
+  };
+  
+  hardware.trackpoint = {
+    enable = true;
+    emulateWheel = true;
+    sensitivity = 255;
+    speed = 130;
+  };
+  
 }
