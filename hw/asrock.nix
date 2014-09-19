@@ -14,6 +14,7 @@
     loader.grub.device = "/dev/sda";
     initrd.availableKernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "usb_storage" ];
     kernelModules = [ "kvm-intel" ];
+    blacklistedKernelModules = [ "i915" ];
     extraModulePackages = [ ];
   };
 

@@ -36,7 +36,7 @@
     printing.enable = true;
     acpid.enable = true;
     xserver = {
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "nouveau" ];
     };
   };
   
