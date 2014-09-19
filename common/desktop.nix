@@ -2,17 +2,12 @@
 
 {
         
-
- services.xserver = {
-   enable = true;
-   #desktopManager.default = "none";
-   #displayManager.slim.enable = false;
-   displayManager.kdm.enable = true;
-   desktopManager.kde4.enable = true;
-   #windowManager.i3.enable = true;
- };
-
-
+  services.xserver = {
+    desktopManager = { default = "none"; kde4.enable = true; };
+    displayManager = { kdm.enable = true; slim.enable = false; };
+    enable = true;
+  };
+ 
 
   environment = {
     systemPackages = with pkgs; [
@@ -35,5 +30,10 @@
       pkgs.kde4.kde_gtk_config
     ];
   };
-   
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+        kde4 = pkgs.kde412;
+    };
+  };
 }

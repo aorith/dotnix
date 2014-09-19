@@ -81,7 +81,7 @@
   };
   services.xserver.videoDrivers = ["intel"];
   services.thinkfan.enable = true;
-  services.thinkfan.sensor = "/sys/devices/platform/coretemp.0/temp1_input";
+  services.thinkfan.sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input";
   services.acpid.enable = true;
   services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
   
