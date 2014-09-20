@@ -13,6 +13,7 @@
       ./common/fonts.nix
       ./common/desktop.nix
       ./common/misc.nix
+      ./common/services.nix
     ];
 
   environment = {

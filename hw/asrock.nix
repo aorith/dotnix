@@ -39,5 +39,4 @@
     ];
 
   nix.maxJobs = 4;
-  hardware.pulseaudio.enable = true;
 }

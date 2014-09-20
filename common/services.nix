@@ -6,4 +6,8 @@
     openssh.enable = true;
   };
 
+  hardware = {
+    pulseaudio.enable = true;
+  };
+
 }
