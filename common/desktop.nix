@@ -27,13 +27,13 @@
       pkgs.kde4.print_manager
       pkgs.pmutils
       pkgs.shared_mime_info
-      pkgs.kde4.kde_gtk_config
+      pkgs.kde4.kde_gtk_config pkgs.kde4.kdevelop
     ];
   };
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
-        kde4 = pkgs.kde412;
+       # kde4 = pkgs.kde412;
     };
   };
 }
