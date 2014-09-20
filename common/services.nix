@@ -4,13 +4,13 @@
 
   # powertop custom service
   systemd.services.powertop = {
+    enable = true;
     description = "Powertop tunings";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      User = "root";
       Environment="TERM=xterm";
       ExecStart = ''
-        ${pkgs.stdenv.shell} -c "powertop --auto-tune"
+        ${pkgs.stdenv.shell} -c "/run/current-system/sw/sbin/powertop --auto-tune";
       '';
     };
   };
