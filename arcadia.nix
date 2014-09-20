@@ -20,6 +20,7 @@
     systemPackages = with pkgs; [
       wpa_supplicant
       thinkfan
+      xorg.xf86inputsynaptics
     ];
   };
 
