@@ -19,6 +19,7 @@
   environment = {
     systemPackages = with pkgs; [
       calibre
+      androidsdk_4_1
     ];
   };
 

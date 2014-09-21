@@ -5,7 +5,7 @@
    environment.systemPackages = with pkgs; [
      acpi linuxPackages.acpi_call lm_sensors powertop
      wget ntfs3g chromiumBeta firefoxWrapper
-     mpv vlc git vim sudo youtubeDL xcalib most pulseaudio
+     mpv vlc git vimHugeX sudo youtubeDL xcalib most pulseaudio
      emacs
      emacs24Packages.autoComplete
      emacs24Packages.colorTheme
@@ -35,6 +35,7 @@
      gstreamer
      gst_plugins_base gst_plugins_good
      gst_plugins_bad gst_plugins_ugly
+     libmtp jmtpfs mtpfs
    ];
 
    nixpkgs.config = {
