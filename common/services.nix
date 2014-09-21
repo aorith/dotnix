@@ -22,7 +22,8 @@
     locate.enable = true;
     avahi.enable = true; # zeroconf
     avahi.nssmdns = true; # local hostnames with avahi
-    ntp.enable = true; 
+    ntp.enable = true;
+    nixosManual.enable = true; 
     nixosManual.showManual = true;
   };
 

@@ -4,7 +4,7 @@
   # -env -qaP | grep wget
    environment.systemPackages = with pkgs; [
      acpi linuxPackages.acpi_call lm_sensors powertop
-     wget ntfs3g chromiumDev firefoxWrapper
+     wget ntfs3g chromiumBeta firefoxWrapper
      mpv vlc git vim sudo youtubeDL xcalib most pulseaudio
      emacs
      emacs24Packages.autoComplete
