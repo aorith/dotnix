@@ -42,6 +42,19 @@
       #powerUpCommands = "powertop --auto-tune";
   };
   
+  # powertop custom service
+  systemd.services.powertop = {
+    enable = true;
+    description = "Powertop tunings";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Environment="TERM=xterm";
+      ExecStart = ''
+        ${pkgs.stdenv.shell} -c "/run/current-system/sw/sbin/powertop --auto-tune";
+      '';
+    };
+  };
+
   services = {
     thinkfan = {
       enable = true;
