@@ -55,7 +55,7 @@
                  chainloader (hd0,1)+1
                }
       '';
-  boot.loader.grub.extraEntriesBeforeNixOS = true;
+  boot.loader.grub.extraEntriesBeforeNixOS = false;
 
   # testing
   hardware.enableAllFirmware = true;

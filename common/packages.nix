@@ -28,7 +28,7 @@
      cmake ant pkgconfig intltool maven ccache
      binutils docutils gdb lsof xorg.xsetroot
      xorg.xhost xsel xorg.xinit xorg.setxkbmap
-     xorg.xev xorg.xbacklight xorg.xprop kde4.ktorrent
+     xorg.xev xorg.xbacklight xorg.xprop
      cups manpages freetype fontconfig p7zip gcc smartmontools
      sublime3 hexchat hello
      alsaLib alsaPlugins alsaUtils

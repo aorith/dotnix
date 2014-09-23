@@ -27,7 +27,8 @@
       pkgs.kde4.print_manager
       pkgs.pmutils
       pkgs.shared_mime_info
-      pkgs.kde4.kde_gtk_config pkgs.kde4.kdevelop
+      pkgs.kde4.kde_gtk_config pkgs.kde4.kdevelop pkgs.kde4.kdesdk_kioslaves
+      pkgs.kde4.ktorrent
     ];
   };
 
