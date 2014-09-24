@@ -49,7 +49,7 @@
 
     chromium = {
      enablePepperFlash = true; # Chromium removed support for Mozilla (NPAPI) plugins so Adobe Flash no longer works 
-     #enablePepperPDF = true;
+     enablePepperPDF = true;
     };
 
   };

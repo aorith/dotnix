@@ -28,7 +28,7 @@
       pkgs.pmutils
       pkgs.shared_mime_info
       pkgs.kde4.kde_gtk_config pkgs.kde4.kdevelop pkgs.kde4.kdesdk_kioslaves
-      pkgs.kde4.ktorrent
+      pkgs.kde4.ktorrent pkgs.kde4.akonadi
     ];
   };
 
