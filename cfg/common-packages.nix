@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, stdenv, fetchGit, ... }:
 
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
@@ -11,9 +11,14 @@ in
     bat
     jq
     lsof
+    tree
     pstree
     unzip
     commonsCompress
+    shellcheck
+    manpages
+    bash-completion
+    nix-bash-completions
 
     # system
     htop
@@ -38,8 +43,10 @@ in
     git
 
     # terminals
-    unstable.tmux
+    #unstable.tmux
+    (callPackage ./../pkgs/tmux { })
   ];
 
   nixpkgs.config.allowUnfree = true;
 }
+

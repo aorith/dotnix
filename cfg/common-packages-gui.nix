@@ -7,6 +7,7 @@ in
   environment.systemPackages = with pkgs; [
     # utils
     xclip
+    autocutsel
     wmctrl
     xdotool
     xorg.xev
@@ -37,6 +38,18 @@ in
 
     # other
     libreoffice
-
   ];
+
+  systemd.user.services.autocutsel = {
+    description = "AutoCutSel";
+    wantedBy = [ "default.target" ];
+    serviceConfig = {
+      Type = "forking";
+      Restart = "always";
+      RestartSec = 2;
+      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -fork";
+      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+    };
+  };
+  systemd.user.services.autocutsel.enable = true;
 }
