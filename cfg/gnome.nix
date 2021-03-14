@@ -15,6 +15,7 @@
     systemPackages = with pkgs; [
       gnome3.gnome-tweaks
       gnomeExtensions.clipboard-indicator
+      gnomeExtensions.appindicator
     ];
   };
 }

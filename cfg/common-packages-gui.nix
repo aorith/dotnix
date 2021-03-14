@@ -38,6 +38,7 @@ in
 
     # other
     libreoffice
+    flameshot
   ];
 
   systemd.user.services.autocutsel = {
@@ -47,8 +48,9 @@ in
       Type = "forking";
       Restart = "always";
       RestartSec = 2;
-      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -fork";
-      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+      # "-selection PRIMARY" syncs primary to clipboard - makes it hard to paste urls on the browser
+      #ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -fork";
     };
   };
   systemd.user.services.autocutsel.enable = true;

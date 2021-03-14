@@ -50,5 +50,11 @@ _info "Bootstrapping ${HOSTNAME} ..."
 _link_config || exit $?
 _add_unstable_channel
 _info "Executing nixos-rebuild switch --upgrade"
-sudo nixos-rebuild switch --upgrade
+sudo nixos-rebuild switch --upgrade && \
+    _info "Rebuild Done - deleting older generations ..." && \
+    sudo nix-env --delete-generations +20 && \
+    sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +20 && \
+    _info "Running nix-store --gc ..." && \
+    sudo nix-store --gc && \
+    _info "Bootstrap complete!"
 
