@@ -27,12 +27,16 @@ _check_requisites() {
     fi
     _info "Checking for sudo privileges ..."
     sudo true || { _err "Bootstrapping requires sudo privileges to link config files and rebuild the system."; exit 1; }
+
+    [[ -n "$PRIVATE_DOTFILES" ]] || { _err "This config requires private dotfiles."; exit 1; }
+    ln -s "${PRIVATE_DOTFILES}/dotnix/private" ~/githome/dotnix/private 2>/dev/null || true
 }
 
 _link_config() {
     _info "Creating the symlinks for the configuration ..."
     _link "${HOSTNAME}-config.nix" || return 10
     _link "cfg" || return 11
+    _link "private" || return 12
 }
 
 _add_unstable_channel() {
