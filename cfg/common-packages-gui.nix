@@ -14,6 +14,9 @@ in
     xorg.xwininfo
     openvpn
     valgrind
+    virt-manager
+    qemu
+    qemu_kvm
 
     # browsers
     firefox
