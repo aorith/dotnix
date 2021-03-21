@@ -11,6 +11,7 @@ in
     bat
     jq
     lsof
+    fzf
     tree
     pstree
     unzip
