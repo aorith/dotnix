@@ -21,7 +21,7 @@
       group = "aorith";
       home = "/home/aorith";
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" "docker" ];
+      extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
       shell = pkgs.bash;
     };
   };
