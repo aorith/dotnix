@@ -22,9 +22,9 @@ in
   networking.interfaces = {
     enp0s25.useDHCP = useNetworkManager;
     wlan0.useDHCP = useNetworkManager;
-    br0.ipv4.addresses = [
-      { address = "192.168.1.237"; prefixLength = 24; }
-    ];
+    #br0.ipv4.addresses = [
+    #  { address = "192.168.1.237"; prefixLength = 24; }
+    #];
   };
 
   # NetworkManager

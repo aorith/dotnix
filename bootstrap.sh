@@ -4,12 +4,14 @@ _info() { echo -e "[$(tput setaf 4) INFO $(tput sgr0)] $*"; }
 _err() { echo -e "[$(tput setaf 1) ERROR $(tput sgr0)] $*"; }
 
 _link() {
-    local src tgt
+    local src tgt src_dir
+    src_dir="$(pwd -P)"
     [[ -n "$1" ]] || { _err "_link(): No parameters on _link()."; return 1; }
     src="$1"
     [[ -e "$src" ]] || { _err "_link(): Source file doesn't exist: \"${src}\""; return 1; }
     [[ -n "$2" ]] && tgt="$2" || tgt="$1"
-    sudo ln -sfv "$(pwd -P)/${src}" "/etc/nixos/${tgt}" || \
+    [[ "$(readlink -f "/etc/nixos/${tgt}")" == "$(readlink -f "${src_dir}/${src}")" ]] || \
+        sudo ln -sfv "${src_dir}/${src}" "/etc/nixos/${tgt}" || \
         { _err "_link(): Couldn't make a link of \"$src\" in \"$tgt\""; return 1; }
 }
 
@@ -29,7 +31,8 @@ _check_requisites() {
     sudo true || { _err "Bootstrapping requires sudo privileges to link config files and rebuild the system."; exit 1; }
 
     [[ -n "$PRIVATE_DOTFILES" ]] || { _err "This config requires private dotfiles."; exit 1; }
-    ln -s "${PRIVATE_DOTFILES}/dotnix/private" ~/githome/dotnix/private 2>/dev/null || true
+    [[ "$(readlink -f "${PRIVATE_DOTFILES}/dotnix/private")" == "$(readlink -f "${HOME}/githome/dotnix/private")" ]] || \
+        ln -svf "${PRIVATE_DOTFILES}/dotnix/private" ~/githome/dotnix/private
 }
 
 _link_config() {
