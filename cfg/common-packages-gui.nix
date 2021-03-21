@@ -26,6 +26,7 @@ in
     # chat
     discord
     hexchat
+    ferdi
 
     # terminals
     unstable.alacritty
