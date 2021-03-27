@@ -20,6 +20,9 @@ in
     manpages
     bash-completion
     nix-bash-completions
+    gnupg
+    gptfdisk
+    cdrkit
 
     # system
     htop
@@ -35,6 +38,7 @@ in
     direnv
     bind
     binutils
+    kvm
 
     # editors
     vim
@@ -42,6 +46,7 @@ in
 
     # dev
     git
+    debootstrap
 
     # terminals
     #unstable.tmux

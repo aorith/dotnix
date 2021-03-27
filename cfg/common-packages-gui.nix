@@ -26,11 +26,10 @@ in
     # chat
     discord
     hexchat
-    ferdi
 
     # terminals
     unstable.alacritty
-    kitty
+    unstable.kitty
 
     # media
     pulsemixer
@@ -41,8 +40,10 @@ in
     spotify
 
     # other
+    joplin-desktop
     libreoffice
     flameshot
+    keepassxc
   ];
 
   systemd.user.services.autocutsel = {

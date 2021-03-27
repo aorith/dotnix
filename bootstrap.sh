@@ -30,9 +30,9 @@ _check_requisites() {
     _info "Checking for sudo privileges ..."
     sudo true || { _err "Bootstrapping requires sudo privileges to link config files and rebuild the system."; exit 1; }
 
-    [[ -n "$PRIVATE_DOTFILES" ]] || { _err "This config requires private dotfiles."; exit 1; }
-    [[ "$(readlink -f "${PRIVATE_DOTFILES}/dotnix/private")" == "$(readlink -f "${HOME}/githome/dotnix/private")" ]] || \
-        ln -svf "${PRIVATE_DOTFILES}/dotnix/private" ~/githome/dotnix/private
+    [[ -n "$PRIVATE_GITHOME" ]] || { _err "This config requires private dotfiles."; exit 1; }
+    [[ "$(readlink -f "${PRIVATE_GITHOME}/dotnix/private")" == "$(readlink -f "${HOME}/githome/dotnix/private")" ]] || \
+        ln -svf "${PRIVATE_GITHOME}/dotnix/private" ~/githome/dotnix/private
 }
 
 _link_config() {

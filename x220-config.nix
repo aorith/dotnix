@@ -34,11 +34,11 @@ in
     packages = [ pkgs.networkmanager_openvpn ];
   };
 
-  networking.bridges = {
-    br0 = {
-      interfaces = [ "enp0s25" ];
-    };
-  };
+  #networking.bridges = {
+  #  br0 = {
+  #    interfaces = [ "enp0s25" ];
+  #  };
+  #};
 
   # systemd-networkd
   systemd.network = {
@@ -106,7 +106,6 @@ in
       ./cfg/python.nix
       ./cfg/flatpak.nix
       ./cfg/fonts.nix
-      ./cfg/containers/test.nix
-      ./private/nspawn/debian.nix
+      ./private/virtualisation/config.nix
     ];
 }

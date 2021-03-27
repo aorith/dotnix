@@ -21,8 +21,12 @@
       group = "aorith";
       home = "/home/aorith";
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
+      extraGroups = [ "wheel" "networkmanager" "libvirtd" "lxd" ];
       shell = pkgs.bash;
     };
+  };
+
+  environment.shellAliases = {
+    list-packages = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u";
   };
 }
