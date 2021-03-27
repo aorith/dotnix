@@ -40,7 +40,7 @@ in
     spotify
 
     # other
-    joplin-desktop
+    unstable.joplin-desktop
     libreoffice
     flameshot
     keepassxc
