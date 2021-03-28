@@ -10,9 +10,6 @@ in
   networking.hostName = "x220";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Set your time zone.
-  time.timeZone = "Europe/Madrid";
-
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -89,6 +86,8 @@ in
   # nspawn
   systemd.targets.machines.enable = true;
 
+  # Filesystem overrides
+  services.fstrim.enable = true;
   fileSystems."/" =
     {
       # intentionally not specifying the device here, so it gets picked from hardware-configuration.nix

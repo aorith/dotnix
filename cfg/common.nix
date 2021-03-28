@@ -2,8 +2,7 @@
 
 {
   nix.gc.automatic = true;
-
-  security.sudo.wheelNeedsPassword = false;
+  time.timeZone = "Europe/Madrid";
 
   users.groups = {
     aorith = {
@@ -25,6 +24,8 @@
       shell = pkgs.bash;
     };
   };
+
+  security.sudo.wheelNeedsPassword = false;
 
   environment.shellAliases = {
     list-packages = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u";
