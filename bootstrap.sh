@@ -42,13 +42,19 @@ _link_config() {
     _link "private" || return 12
 }
 
-_add_unstable_channel() {
+_add_extra_channels() {
     local channels
     channels="$(sudo nix-channel --list)"
     if [[ $? -eq 0 ]] && ! grep -q 'nixos-unstable' <<< "$channels"; then
         _info "Adding unstable channel ..."
         sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
         sudo nix-channel --update nixos-unstable
+    fi
+
+    if [[ $? -eq 0 ]] && ! grep -q 'nixos-hardware' <<< "$channels"; then
+        _info "Adding nixos-hardware channel ..."
+        sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+        sudo nix-channel --update nixos-hardware
     fi
 }
 
@@ -59,7 +65,7 @@ else
     _check_requisites
     _info "Bootstrapping ${HOSTNAME} ..."
     _link_config || exit $?
-    _add_unstable_channel
+    _add_extra_channels
     _info "Executing nixos-rebuild switch --upgrade"
     sudo nixos-rebuild switch --upgrade && \
         _info "Rebuild Done - deleting older generations ..." && \

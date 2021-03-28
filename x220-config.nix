@@ -98,6 +98,7 @@ in
 
   imports =
     [
+      <nixos-hardware/lenovo/thinkpad/x220>
       ./cfg/common.nix
       ./cfg/common-packages.nix
       ./cfg/common-packages-gui.nix
