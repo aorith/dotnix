@@ -20,17 +20,19 @@ _check_requisites() {
     if [[ ! -e "${HOSTNAME}.nix" ]]; then
         _err "File ${HOSTNAME}.nix is missing."
         _err "Hostname \"${HOSTNAME}\" doesn't have a configuration yet."
-        exit 1
+        return 1
     fi
     _info "Checking /etc/nixos/configuration.nix ..."
     if ! grep -wq "./${HOSTNAME}.nix" "/etc/nixos/configuration.nix"; then
         _err "Before bootstrapping, please add the import of \"${HOSTNAME}.nix\" to /etc/nixos/configuration.nix"
-        exit 1
+        return 1
     fi
     _info "Checking for sudo privileges ..."
-    sudo true || { _err "Bootstrapping requires sudo privileges to link config files and rebuild the system."; exit 1; }
+    sudo true || { _err "Bootstrapping requires sudo privileges to link config files and rebuild the system."; return 1; }
 
-    [[ -n "$PRIVATE_GITHOME" ]] || { _err "This config requires private dotfiles."; exit 1; }
+
+    [[ -z "$1" ]] || return 0
+    [[ -n "$PRIVATE_GITHOME" ]] || { _err "This config requires private dotfiles."; return 1; }
     [[ "$(readlink -f "${PRIVATE_GITHOME}/dotnix/private")" == "$(readlink -f "${HOME}/githome/dotnix/private")" ]] || \
         ln -svf "${PRIVATE_GITHOME}/dotnix/private" ~/githome/dotnix/private
 }
@@ -39,6 +41,7 @@ _link_config() {
     _info "Creating the symlinks for the configuration ..."
     _link "${HOSTNAME}.nix" || return 10
     _link "cfg" || return 11
+    [[ -z "$1" ]] || return 0
     _link "private" || return 12
 }
 
@@ -58,13 +61,15 @@ _add_extra_channels() {
     fi
 }
 
+[[ "$1" != "skip-private" ]] || SKIP_PRIVATE=1
+
 if [[ "$1" == "rollback" ]]; then
     _info "Running \"nixos-rebuild switch --rollback\" ..."
     sudo nixos-rebuild switch --rollback
 else
-    _check_requisites
+    _check_requisites $SKIP_PRIVATE || exit $?
     _info "Bootstrapping ${HOSTNAME} ..."
-    _link_config || exit $?
+    _link_config $SKIP_PRIVATE || exit $?
     _add_extra_channels
     _info "Executing nixos-rebuild switch --upgrade"
     sudo nixos-rebuild switch --upgrade && \
