@@ -17,14 +17,14 @@ _link() {
 
 _check_requisites() {
     _info "Checking the config file ..."
-    if [[ ! -e "${HOSTNAME}-config.nix" ]]; then
-        _err "File ${HOSTNAME}-config.nix is missing."
+    if [[ ! -e "${HOSTNAME}.nix" ]]; then
+        _err "File ${HOSTNAME}.nix is missing."
         _err "Hostname \"${HOSTNAME}\" doesn't have a configuration yet."
         exit 1
     fi
     _info "Checking /etc/nixos/configuration.nix ..."
-    if ! grep -wq "./${HOSTNAME}-config.nix" "/etc/nixos/configuration.nix"; then
-        _err "Before bootstrapping, please add the import of \"${HOSTNAME}-config.nix\" to /etc/nixos/configuration.nix"
+    if ! grep -wq "./${HOSTNAME}.nix" "/etc/nixos/configuration.nix"; then
+        _err "Before bootstrapping, please add the import of \"${HOSTNAME}.nix\" to /etc/nixos/configuration.nix"
         exit 1
     fi
     _info "Checking for sudo privileges ..."
@@ -37,7 +37,7 @@ _check_requisites() {
 
 _link_config() {
     _info "Creating the symlinks for the configuration ..."
-    _link "${HOSTNAME}-config.nix" || return 10
+    _link "${HOSTNAME}.nix" || return 10
     _link "cfg" || return 11
     _link "private" || return 12
 }
