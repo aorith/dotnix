@@ -1,26 +1,33 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   nix.gc.automatic = true;
   time.timeZone = "Europe/Madrid";
 
   users.groups = {
-    aorith = {
-      name = "aorith";
-      members = [ "aorith" ];
-      gid = 9999;
+    "${config.my.user.name}" = {
+      name = "${config.my.user.name}";
+      members = [ "${config.my.user.name}" ];
+      gid = config.my.user.uid;
+    };
+
+    "${config.my.rwgroup.name}" = {
+      name = "${config.my.rwgroup.name}";
+      members = config.my.rwgroup.members;
+      gid = config.my.rwgroup.gid;
     };
   };
 
   users.users = {
-    aorith = {
+    "${config.my.user.name}" = {
+      name = "${config.my.user.name}";
       isNormalUser = true;
       description = "Manuel";
-      uid = 9999;
-      group = "aorith";
-      home = "/home/aorith";
+      uid = config.my.user.uid;
+      group = "${config.my.user.name}";
+      home = "${config.my.user.home}";
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" "libvirtd" "lxd" ];
+      extraGroups = config.my.user.extragroups;
       shell = pkgs.bash;
     };
   };
@@ -28,6 +35,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   environment.shellAliases = {
-    list-packages = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u";
+    list-packages =
+      "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u";
   };
 }

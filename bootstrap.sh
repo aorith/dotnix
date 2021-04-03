@@ -1,48 +1,31 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "$0")" || exit 1
+
+HOST_CONF="./dotnix/hosts/${HOSTNAME}/main.nix"
+
 _info() { echo -e "[$(tput setaf 4) INFO $(tput sgr0)] $*"; }
 _err() { echo -e "[$(tput setaf 1) ERROR $(tput sgr0)] $*"; }
 
-_link() {
-    local src tgt src_dir
-    src_dir="$(pwd -P)"
-    [[ -n "$1" ]] || { _err "_link(): No parameters on _link()."; return 1; }
-    src="$1"
-    [[ -e "$src" ]] || { _err "_link(): Source file doesn't exist: \"${src}\""; return 1; }
-    [[ -n "$2" ]] && tgt="$2" || tgt="$1"
-    [[ "$(readlink -f "/etc/nixos/${tgt}")" == "$(readlink -f "${src_dir}/${src}")" ]] || \
-        sudo ln -sfv "${src_dir}/${src}" "/etc/nixos/${tgt}" || \
-        { _err "_link(): Couldn't make a link of \"$src\" in \"$tgt\""; return 1; }
-}
-
 _check_requisites() {
     _info "Checking the config file ..."
-    if [[ ! -e "${HOSTNAME}.nix" ]]; then
-        _err "File ${HOSTNAME}.nix is missing."
+    if [[ ! -e "../${HOST_CONF}" ]]; then
+        _err "File ${HOST_CONF} is missing."
         _err "Hostname \"${HOSTNAME}\" doesn't have a configuration yet."
         return 1
     fi
-    _info "Checking /etc/nixos/configuration.nix ..."
-    if ! grep -wq "./${HOSTNAME}.nix" "/etc/nixos/configuration.nix"; then
-        _err "Before bootstrapping, please add the import of \"${HOSTNAME}.nix\" to /etc/nixos/configuration.nix"
-        return 1
-    fi
+
     _info "Checking for sudo privileges ..."
     sudo true || { _err "Bootstrapping requires sudo privileges to link config files and rebuild the system."; return 1; }
 
+    _info "Creating the symlink for configuration.nix ..."
+    [[ "$(pwd -P)/hosts/configuration.nix" == "$(readlink -f "/etc/nixos/configuration.nix")" ]] || \
+        sudo ln -svf "$(pwd -P)/hosts/configuration.nix" "/etc/nixos/configuration.nix"
 
     [[ -z "$1" ]] || return 0
     [[ -n "$PRIVATE_GITHOME" ]] || { _err "This config requires private dotfiles."; return 1; }
     [[ "$(readlink -f "${PRIVATE_GITHOME}/dotnix/private")" == "$(readlink -f "${HOME}/githome/dotnix/private")" ]] || \
         ln -svf "${PRIVATE_GITHOME}/dotnix/private" ~/githome/dotnix/private
-}
-
-_link_config() {
-    _info "Creating the symlinks for the configuration ..."
-    _link "${HOSTNAME}.nix" || return 10
-    _link "cfg" || return 11
-    [[ -z "$1" ]] || return 0
-    _link "private" || return 12
 }
 
 _add_extra_channels() {
@@ -69,7 +52,6 @@ if [[ "$1" == "rollback" ]]; then
 else
     _check_requisites $SKIP_PRIVATE || exit $?
     _info "Bootstrapping ${HOSTNAME} ..."
-    _link_config $SKIP_PRIVATE || exit $?
     _add_extra_channels
     _info "Executing nixos-rebuild switch --upgrade"
     sudo nixos-rebuild switch --upgrade && \

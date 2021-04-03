@@ -23,6 +23,7 @@ in
     gnupg
     gptfdisk
     cdrkit
+    nixfmt
 
     # system
     htop
@@ -39,6 +40,8 @@ in
     bind
     binutils
     kvm
+    pciutils
+    pinentry
 
     # editors
     vim
