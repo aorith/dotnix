@@ -7,6 +7,7 @@
       group = "${config.my.rwgroup.name}";
       configDir = "${config.my.user.home}/.config/syncthing";
       dataDir = "${config.my.syncthing.datadir}";
+      guiAddress = "${config.my.syncthing.guiaddress}";
     };
   };
   systemd.tmpfiles.rules = if "${config.my.user.home}/Syncthing"

@@ -18,6 +18,8 @@
     };
   };
 
+  users.mutableUsers = false;
+  users.extraUsers.root.hashedPassword = "${config.my.root.hashedpassword}";
   users.users = {
     "${config.my.user.name}" = {
       name = "${config.my.user.name}";
@@ -29,6 +31,8 @@
       createHome = true;
       extraGroups = config.my.user.extragroups;
       shell = pkgs.bash;
+      hashedPassword = "${config.my.user.hashedpassword}";
+      openssh.authorizedKeys.keys = config.my.authorizedKeys;
     };
   };
 

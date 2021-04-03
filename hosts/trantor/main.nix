@@ -1,9 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
+  hostname = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
   dotnix = "/home/aorith/githome/dotnix";
 in {
   imports = [
-    ./variables.nix
+    "${dotnix}/private/hosts/${hostname}/variables.nix"
+    ./persist.nix
     ./hardware.nix
     ./networking.nix
     "${dotnix}/cfg/common.nix"
