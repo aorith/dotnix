@@ -16,6 +16,9 @@ in {
     "${dotnix}/cfg/python.nix"
     #"${dotnix}/cfg/flatpak.nix"
     "${dotnix}/cfg/fonts.nix"
+    "${dotnix}/private/virtualisation/libvirt.nix"
+    "${dotnix}/private/virtualisation/lxc.nix"
+    "${dotnix}/private/nixos-containers/test.nix"
   ];
 
   programs.gnupg.agent = {
@@ -48,9 +51,6 @@ in {
     hibernate.enable = false;
     hybrid-sleep.enable = false;
   };
-
-  # Libvirtd
-  virtualisation.libvirtd.enable = true;
 
   system.stateVersion = "20.09";
 }

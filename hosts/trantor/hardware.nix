@@ -24,11 +24,14 @@
   sound.enable = true;
   hardware = {
     pulseaudio.enable = true;
+    opengl.enable = true;
+    video.hidpi.enable = true;
+    enableAllFirmware = true;
     cpu.amd.updateMicrocode = true;
   };
 
   services = {
-    xserver.videoDrivers = [ "modesetting" ];
+    xserver.videoDrivers = [ "nvidia_390" ];
     udev.extraRules = ''
       KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
     '';
@@ -70,12 +73,27 @@
       fsType = "zfs";
     };
     "/var/lib/libvirt" = {
-      device = "tank/data/libvirt";
+      device = "tank/persist/var_lib_libvirt";
       fsType = "zfs";
       neededForBoot = true;
     };
     "/var/lib/libvirt/images" = {
-      device = "tank/data/libvirt/images";
+      device = "tank/persist/var_lib_libvirt/images";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/var/lib/containers" = {
+      device = "tank/persist/var_lib_containers";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/etc/containers" = {
+      device = "tank/persist/etc_containers";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/data/bigfiles" = {
+      device = "tank/data/bigfiles";
       fsType = "zfs";
     };
   };

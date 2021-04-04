@@ -10,6 +10,7 @@
     "L /var/lib/bluetooth - - - - /persist/var/lib/bluetooth"
     "L /var/lib/lxd - - - - /persist/var/lib/lxd"
     "L /var/lib/docker - - - - /persist/var/lib/docker"
+    "L /var/lib/virtlyst - - - - /persist/var/lib/virtlyst"
     "L /root/.gnupg - - - - /persist/root/.gnupg"
   ];
 }

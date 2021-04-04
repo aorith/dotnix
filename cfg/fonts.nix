@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  fonts.enableDefaultFonts = true;
   fonts.fonts = with pkgs; [
     jetbrains-mono
     hack-font
