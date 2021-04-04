@@ -48,11 +48,11 @@ in
 
   systemd.user.services.autocutsel = {
     description = "AutoCutSel";
-    wantedBy = [ "default.target" ];
+    wantedBy = [ "graphical.target" ];
     serviceConfig = {
       Type = "forking";
       Restart = "always";
-      RestartSec = 2;
+      RestartSec = 30;
       # "-selection PRIMARY" syncs primary to clipboard - makes it hard to paste urls on the browser
       #ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
       ExecStart = "${pkgs.autocutsel}/bin/autocutsel -fork";

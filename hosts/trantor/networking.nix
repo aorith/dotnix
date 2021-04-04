@@ -1,9 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   networking = {
     hostName = config.my.hostname;
     hostId = config.my.hostid;
     usePredictableInterfaceNames = true;
-    firewall.enable = false;
+    firewall.enable = lib.mkForce false;
 
     bridges = { br0.interfaces = [ "enp8s0" ]; };
 

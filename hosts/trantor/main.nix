@@ -11,47 +11,46 @@ in {
     "${dotnix}/cfg/common.nix"
     "${dotnix}/cfg/common-packages.nix"
     "${dotnix}/cfg/common-packages-gui.nix"
-    #"${dotnix}/cfg/gnome.nix"
+    "${dotnix}/cfg/gnome.nix"
     "${dotnix}/cfg/syncthing-aorith.nix"
     "${dotnix}/cfg/python.nix"
     #"${dotnix}/cfg/flatpak.nix"
     "${dotnix}/cfg/fonts.nix"
   ];
 
-  system.stateVersion = "20.09";
-
-  programs.gnupg.agent.enable = true;
-  programs.gnupg.agent.enableSSHSupport = true;
-  programs.gnupg.agent.pinentryFlavor = "curses";
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "curses";
+  };
 
   programs.vim.defaultEditor = true;
-  programs.bash.enableCompletion = true;
-  programs.bash.enableLsColors = true;
+  programs.bash = {
+    enableCompletion = true;
+    enableLsColors = true;
+  };
   programs.iftop.enable = true;
   programs.iotop.enable = true;
   programs.mtr.enable = true;
   programs.traceroute.enable = true;
   powerManagement.enable = false;
-  services.openssh.enable = true;
 
-  services.xserver.videoDrivers = [ "modesetting" ];
-
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "es";
+  services = {
+    openssh.enable = true;
+    xserver.desktopManager.xfce.enable = true;
+    xrdp.enable = true;
+    xrdp.defaultWindowManager = "xfce4-session";
   };
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
+  };
 
   # Libvirtd
   virtualisation.libvirtd.enable = true;
 
+  system.stateVersion = "20.09";
 }

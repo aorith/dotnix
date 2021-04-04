@@ -24,6 +24,7 @@ in
     gptfdisk
     cdrkit
     nixfmt
+    screen
 
     # system
     htop

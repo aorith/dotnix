@@ -1,17 +1,19 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
+{ config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
+    supportedFilesystems = [ "zfs" ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
     initrd = {
-       availableKernelModules =
-    [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-       kernelModules = [ ];
-       postDeviceCommands = lib.mkAfter ''
-          zfs rollback -r rpool/local/root@blank
-       '';
-
+      availableKernelModules =
+        [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+      postDeviceCommands = lib.mkAfter ''
+        zfs rollback -r rpool/local/root@blank
+      '';
     };
     kernelModules = [ "kvm-amd" ];
     kernelPackages = pkgs.linuxPackages_latest;
@@ -19,48 +21,65 @@
     extraModulePackages = [ ];
   };
 
-  hardware.cpu.amd.updateMicrocode = true;
+  sound.enable = true;
+  hardware = {
+    pulseaudio.enable = true;
+    cpu.amd.updateMicrocode = true;
+  };
 
-  services.fstrim.enable = true;
-  services.zfs.autoScrub.enable = true;
+  services = {
+    xserver.videoDrivers = [ "modesetting" ];
+    udev.extraRules = ''
+      KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
+    '';
+    fstrim.enable = true;
+    zfs.autoScrub.enable = true;
+  };
 
-  fileSystems."/" =
-    { device = "rpool/local/root";
+  fileSystems = {
+    "/" = {
+      device = "rpool/local/root";
       fsType = "zfs";
+      neededForBoot = true;
     };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/96EC-6938";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/96EC-6938";
       fsType = "vfat";
     };
-
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
+    "/nix" = {
+      device = "rpool/local/nix";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/home" = {
+      device = "tank/home";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/persist" = {
+      device = "tank/persist";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/data" = {
+      device = "tank/data";
       fsType = "zfs";
     };
-
-  fileSystems."/home" =
-    { device = "tank/home";
+    "/data/syncthing" = {
+      device = "tank/data/syncthing";
       fsType = "zfs";
     };
-
-  fileSystems."/persist" =
-    { device = "tank/persist";
+    "/var/lib/libvirt" = {
+      device = "tank/data/libvirt";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/var/lib/libvirt/images" = {
+      device = "tank/data/libvirt/images";
       fsType = "zfs";
     };
-
-  fileSystems."/data" =
-    { device = "tank/data";
-      fsType = "zfs";
-    };
-
-  fileSystems."/data/syncthing" =
-    { device = "tank/data/syncthing";
-      fsType = "zfs";
-    };
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/2117a3fc-8e0e-495f-a564-fa8dc4c16137"; }
-    ];
-
+    [{ device = "/dev/disk/by-uuid/2117a3fc-8e0e-495f-a564-fa8dc4c16137"; }];
 }
