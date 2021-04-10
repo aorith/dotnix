@@ -45,6 +45,8 @@ in
     kvm
     pciutils
     pinentry
+    dstat
+    iperf
 
     # editors
     vim

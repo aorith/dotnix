@@ -87,6 +87,11 @@
       fsType = "zfs";
       neededForBoot = true;
     };
+    "/var/lib/docker" = {
+      device = "tank/persist/var_lib_docker";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
     "/etc/containers" = {
       device = "tank/persist/etc_containers";
       fsType = "zfs";
