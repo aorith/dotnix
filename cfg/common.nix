@@ -44,6 +44,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   environment.shellAliases = {
+    dotnix = "cd /home/${config.my.user.name}/githome/dotnix";
     list-packages =
       "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u";
   };

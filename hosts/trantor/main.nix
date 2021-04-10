@@ -16,9 +16,9 @@ in {
     "${dotnix}/cfg/python.nix"
     #"${dotnix}/cfg/flatpak.nix"
     "${dotnix}/cfg/fonts.nix"
+    "${dotnix}/private/virtualisation/common.nix"
     "${dotnix}/private/virtualisation/libvirt.nix"
-    "${dotnix}/private/virtualisation/lxc.nix"
-    "${dotnix}/private/nixos-containers/test.nix"
+    "${dotnix}/private/virtualisation/docker.nix"
   ];
 
   programs.gnupg.agent = {

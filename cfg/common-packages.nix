@@ -25,8 +25,10 @@ in
     cdrkit
     nixfmt
     screen
+    minica
 
     # system
+    openssl
     htop
     sysstat
     lm_sensors
