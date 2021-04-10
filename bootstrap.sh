@@ -20,12 +20,12 @@ _check_requisites() {
 
     _info "Creating the symlink for configuration.nix ..."
     [[ "$(pwd -P)/hosts/configuration.nix" == "$(readlink -f "/etc/nixos/configuration.nix")" ]] || \
-        sudo ln -svf "$(pwd -P)/hosts/configuration.nix" "/etc/nixos/configuration.nix"
+        sudo ln -Tsvf "$(pwd -P)/hosts/configuration.nix" "/etc/nixos/configuration.nix"
 
     [[ -z "$1" ]] || return 0
     [[ -n "$PRIVATE_GITHOME" ]] || { _err "This config requires private dotfiles."; return 1; }
     [[ "$(readlink -f "${PRIVATE_GITHOME}/dotnix/private")" == "$(readlink -f "${HOME}/githome/dotnix/private")" ]] || \
-        ln -svf "${PRIVATE_GITHOME}/dotnix/private" ~/githome/dotnix/private
+        ln -Tsvf "${PRIVATE_GITHOME}/dotnix/private" ~/githome/dotnix/private
 }
 
 _add_extra_channels() {
