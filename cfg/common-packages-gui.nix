@@ -15,6 +15,7 @@ in
     openvpn
     valgrind
     virt-manager
+    virt-viewer
     qemu
     qemu_kvm
 
