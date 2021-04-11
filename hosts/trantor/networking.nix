@@ -37,4 +37,5 @@
       unmanaged = [ "enp8s0" ];
     };
   };
+  users.users."${config.my.user.name}".extraGroups = [ "networkmanager" ];
 }
