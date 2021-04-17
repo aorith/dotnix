@@ -11,14 +11,15 @@ in {
     "${dotnix}/cfg/common.nix"
     "${dotnix}/cfg/common-packages.nix"
     "${dotnix}/cfg/common-packages-gui.nix"
-    "${dotnix}/cfg/gnome.nix"
+    #"${dotnix}/cfg/gnome.nix"
     "${dotnix}/cfg/syncthing-aorith.nix"
     "${dotnix}/cfg/python.nix"
     #"${dotnix}/cfg/flatpak.nix"
     "${dotnix}/cfg/fonts.nix"
     "${dotnix}/private/virtualisation/common.nix"
     "${dotnix}/private/virtualisation/libvirt.nix"
-    "${dotnix}/private/virtualisation/docker.nix"
+    "${dotnix}/private/virtualisation/docker/docker.nix"
+    "${dotnix}/private/virtualisation/nixos-containers/nixos-containers.nix"
   ];
 
   programs.gnupg.agent = {
@@ -40,9 +41,14 @@ in {
 
   services = {
     openssh.enable = true;
-    xserver.desktopManager.xfce.enable = true;
+    xserver.enable = true;
     xrdp.enable = true;
-    xrdp.defaultWindowManager = "xfce4-session";
+    xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm";
+    xserver.windowManager.icewm.enable = true;
+    nfs.server = {
+      enable = config.my.nfs.enable;
+      exports = config.my.nfs.exports;
+    };
   };
 
   systemd.targets = {

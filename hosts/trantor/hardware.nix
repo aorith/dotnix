@@ -20,6 +20,7 @@
     kernelParams = [ ];
     extraModulePackages = [ ];
     tmpOnTmpfs = true;
+    enableContainers = true;
   };
 
   sound.enable = true;
