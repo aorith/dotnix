@@ -10,7 +10,7 @@ in {
     ./networking.nix
     "${dotnix}/cfg/common.nix"
     "${dotnix}/cfg/common-packages.nix"
-    "${dotnix}/cfg/common-packages-gui.nix"
+    #"${dotnix}/cfg/common-packages-gui.nix"
     #"${dotnix}/cfg/gnome.nix"
     "${dotnix}/cfg/syncthing-aorith.nix"
     "${dotnix}/cfg/python.nix"
@@ -40,11 +40,24 @@ in {
   powerManagement.enable = false;
 
   services = {
-    openssh.enable = true;
-    xserver.enable = true;
-    xrdp.enable = true;
-    xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm";
-    xserver.windowManager.icewm.enable = true;
+    openssh = {
+      enable = true;
+      hostKeys = [
+        {
+          path = "/persist/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+        {
+          path = "/persist/etc/ssh/ssh_host_rsa_key";
+          type = "rsa";
+          bits = 4096;
+        }
+      ];
+    };
+    #xserver.enable = true;
+    #xrdp.enable = true;
+    #xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm";
+    #xserver.windowManager.icewm.enable = true;
     nfs.server = {
       enable = config.my.nfs.enable;
       exports = config.my.nfs.exports;

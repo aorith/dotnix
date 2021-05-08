@@ -26,6 +26,10 @@ in
     nixfmt
     screen
     minica
+    bc
+    mkpasswd
+    curlftpfs
+    sshfs
 
     # system
     openssl
@@ -47,6 +51,10 @@ in
     pinentry
     dstat
     iperf
+    libxfs
+    xfsprogs
+    parted
+    nvme-cli
 
     # editors
     vim

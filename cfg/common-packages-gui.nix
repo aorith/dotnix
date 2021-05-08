@@ -45,7 +45,6 @@ in
     libreoffice
     flameshot
     keepassxc
-    xfce.xfce4-whiskermenu-plugin
   ];
 
   systemd.user.services.autocutsel = {

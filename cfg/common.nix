@@ -1,13 +1,22 @@
 { config, pkgs, ... }:
 
 {
-  nix.gc.automatic = true;
   time.timeZone = "Europe/Madrid";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
   };
+
+  nix = {
+    gc.automatic = true;
+    autoOptimiseStore = true;
+  };
+
+  services.journald.extraConfig = ''
+    SystemMaxUse=300M
+    MaxFileSec=7day
+  '';
 
   users.groups = {
     "${config.my.user.name}" = {

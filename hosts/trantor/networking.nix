@@ -5,37 +5,51 @@
     usePredictableInterfaceNames = true;
     firewall.enable = lib.mkForce false;
 
-    bridges = { br0.interfaces = [ "enp8s0" ]; };
+    useNetworkd = true;
+    useDHCP = false;
+    #search = [ "mono.lan" ];
 
-    interfaces = {
-      enp6s0f0 = {
-        ipv4.addresses = [{
-          address = "192.168.1.7";
-          prefixLength = 24;
-        }];
-      };
-      br0 = {
-        ipv4.addresses = [{
-          address = "192.168.1.8";
-          prefixLength = 24;
-        }];
-      };
+    #  networkmanager = {
+    #    enable = false;
+    #    wifi.backend = "iwd";
+    #    packages = [ pkgs.networkmanager_openvpn ];
+    #    unmanaged = [ "enp7s0" ];
+    #  };
+    #users.users."${config.my.user.name}".extraGroups = [ "networkmanager" ];
+  };
+
+  services.timesyncd.enable = true;
+  services.resolved = {
+    enable = true;
+    dnssec = "false";
+    llmnr = "false";
+    domains = [ "mono.lan" ];
+    fallbackDns = [ "8.8.8.8" "1.1.1.1" ];
+  };
+  systemd.network = {
+    enable = true;
+    netdevs.br0.netdevConfig = {
+      Name = "br0";
+      Kind = "bridge";
     };
+    networks = {
+      br0.extraConfig = ''
+        [Match]
+        Name = br0
 
-    defaultGateway = {
-      address = "192.168.1.1";
-      interface = "enp6s0f0";
-    };
+        [Network]
+        Address = 192.168.1.7/24
+        Gateway = 192.168.1.1
+        DNS = 192.168.1.5
+      '';
+      enp7s0.extraConfig = ''
+        [Match]
+        Name = enp7s0
 
-    nameservers = [ "192.168.1.5" ];
-    search = [ "mono.lan" ];
-
-    networkmanager = {
-      enable = config.my.useNetworkManager;
-      wifi.backend = "iwd";
-      packages = [ pkgs.networkmanager_openvpn ];
-      unmanaged = [ "enp8s0" ];
+        [Network]
+        Bridge = br0
+      '';
     };
   };
-  users.users."${config.my.user.name}".extraGroups = [ "networkmanager" ];
+
 }

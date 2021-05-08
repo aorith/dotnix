@@ -95,6 +95,16 @@
       fsType = "zfs";
       neededForBoot = true;
     };
+    "/var/lib/virtlyst" = {
+      device = "tank/persist/var_lib_virtlyst";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/var/log" = {
+      device = "tank/persist/var_log";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
     "/etc/containers" = {
       device = "tank/persist/etc_containers";
       fsType = "zfs";
